@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+      <style>
+          .box
+          {
+            width: 800px;
+            margin: 0 auto;
+          }
+          .active_tab1
+          {
+            background-color: #fff;
+            color: #333;
+            font-weight: 600;
+          }
+          .inactive_tab1
+          {
+            background-color: #f5f5f5;
+            color: #333;
+            cursor: not-allowed;
+          }
+      </style>
+</head>
+<body>
+<br />
+<div class="container box">
+    <br />
+    <h2 align="center"> Visualization survey form</h2><br />
+    <form method="post" id="valuation system">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active_tab1" id="list_Land_details "style="border:1px solid #ccc">Land details</a>
+            </li>
+            <li class="nav-items">
+                <a class="nav-link inactive_tab1" id="list_House_details" style="border:1px solid #ccc">House details</a>
+            </li>
+             <li class="nav-items">
+                <a class="nav-link inactive_tab1" id="list_Surrounding_details" style="border:1px solid #ccc">Surrounding details</a>
+            </li>
+        </ul>
+        <div class="tab-content" style="margin-top: 16px;">
+            <div class="tab-pane active" id="Land_details">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Land details</div>
+                    <div class="panel-body">
+                    <div class="form-group">
+                        <label>Land Size in SQM
+                        </label>
+                        <input type="float" name="Land Size" id="Land Size" class="form-control" />
+                        <span id="error_land size" class="number-danger"></span>
+                        </div>
+                         <div class="form-group">
+                        <label>Last sell price
+                        </label>
+                        <input type="float" name="sell price" id="sell price" class="form-control" />
+                        <span id="error_sell price" class="number-danger"></span>
+                        </div>
+                        <br />
+                        <div align="center">
+                            <button type="button" name="btn_user_inputs" id="btn_user_inputs" class="btn btn-info btn-lg">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="house_details">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Fill House details</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label> Enter number of bathrooms </label>
+                            <input type="int" name="number of bathrooms" id="number of bathrooms" class="form-control" />
+                        </div>
+                         <div class="form-group">
+                            <label> Enter number of bedrooms </label>
+                            <input type="int" name="number of bedrooms" id="number of bedrooms" class="form-control" />
+                        </div>
+                        <div class="form-group">
+    <label for="Suburb code">Suburb code</label>
+    <select class="form-control" id="Suburb code">
+      <option>Armstrong Creek</option>
+      <option>Bell Park</option>
+      <option>Bell Post Hill</option>
+      <option>Belmont</option>
+      <option>Break Water</option>
+      <option>Corio</option>
+      <option>Drumcondra</option>
+      <option>East Geelong</option>
+      <option>Freshwater Creek</option>
+      <option>Geelong</option>
+      <option>Geelong West</option>
+      <option>Grovedale</option>
+      <option>Hamlyn Heights</option>
+      <option>Herne Hill</option>
+      <option>Highton</option>
+      <option>Lara</option>
+      <option>Manifold Heights</option>
+      <option>Marshall</option>
+      <option>Mount Duneed</option>
+    </select>
+  </div>
+  <br />
+  <div align="center">
+      <button type="button" name="previous_btn_user_inputs" id="previous_btn_user_inputs" class="btn btn-default btn-lg"> Previous</button>
+      <button type="button" name="btn_user_inputs" id="btn_user_inputs" class="btn btn-info btn-lg">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="Surrounding details">
+                <div class="panel panel-default">Fill Surrounding details</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label> Enter number of Schools</label>
+                        <input type="int" name="number of Schools" id="number of Schools" class="form-control" />
+                    </div>
+                        <div class="form-group">
+                        <label>Enter number of bus stations
+                        </label>
+                        <input type="float" name="number of bus stations" id="number of bus stations" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                        <label> Enter building size</label>
+                        <input type="int" name="building size" id="building size" class="form-control" />
+                    </div>
+                        <div class="form-group">
+                        <label>Enter number of shopping centers
+                        </label>
+                        <input type="float" name="shopping centers" id="shopping centers" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                        <label>Enter number of cars
+                        </label>
+                        <input type="float" name="cars" id="cars" class="form-control" />
+                        </div>
+
+<div class="form-group">
+                        <label>Enter number of Hospitals
+                        </label>
+                        <input type="float" name="Hospitals" id="Hospitals" class="form-control" />
+                        </div>
+
+                        <br />
+                        <div align="center">
+                            <button type="button" name="previous_btn_user_inputs" id="previous_btn_user_inputs" class="btn btn-default btn-lg"> Previous</button>
+                            <button type="button" name="btn_user_inputs" id="btn_user_inputs" class="btn btn-info btn-lg">Next</button>
+                        </div>
+                    </div>
+                </div>
+
+    </form>
+</body>
+</html>
+
+<script>
+    $(document).ready(function(){
+        $('#btn_land_details').click(function(){
+            var error_land_size = '';
+            var error_sell_price = '';
+            var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            if($.trim($('#land size').val()).length == 0)
+            {
+              error_land_size = 'Land Size is required';
+              $('#error_land_size').number(land_size);
+              $('#land_size').addclass('has-error');
+            }
+            else
+            {
+                if(!filter.test($('#land_size').val()))
+                {
+                    error_land_size = 'Invalid Land_size';
+                    $('#error_Land_size').number(error_land_size);
+                    $('#Land_size').addClass('has-error');
+                }
+                else
+                {
+                    error_land_size = '';
+                    $('#error_Land_size').number(error_land_size);
+                    $('#email').removeClass('has-error');
+                }
+            }
+            if($.trim($('#sell_price').val()).length == 0)
+            {
+                error_sell_price = 'Sell_price is required';
+                 $('#error_sell_price').number(error_sell_price);
+                  $('#sell_price').addClass('has-error');
+                      }
+                  else
+                  {
+                    error_sel_price = '';
+                $('#error_sell_price').number(error_sell_price);
+
+                    $('#sell_price').removeClass('has-error');
+               }
+                if(error_Land_size != '' || error_sell_price != '')
+                {
+                    return false;
+                }
+                else
+                {
+                  $('#list_Land_details').removeClass('active active_tab1');
+                  $('#list_Land_details').removeAttr('href data-toggle');
+                  $('#Land_details').removeClass('active');
+                  $('#list_Land_details').addClass('inactive_tab1');
+                  $('#list_Surrounding_details').removeClass('inactive_tab1');
+                  $('#list_Surrounding_details').addClass('active_tab1 active');
+                  $('#list_Surrounding_details').attr('data-toggle', 'tab');
+                  $('#surrounding_details').addClass('active in');
+                }
+
+         });
+            }
+</script>

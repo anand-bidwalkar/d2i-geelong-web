@@ -1,0 +1,69 @@
+<body>
+
+<div class="w3-row-padding w3-padding-64 w3-container">
+    <div class="w3-content">
+      <div class="w3-threequarter">
+
+        {% load static %}
+        
+        
+        <h2>Geelong City - Device count predictions</h2>
+        
+        <p>The map below represents the predictions for unique device counts areound the city of Geelong for the weather data provided.</p>
+        
+        <p>Submitted parameters:</p>
+
+        <table class="w3-table-all w3-center">
+            <thead>
+              <tr>
+                <th>Minimum Temp</th>
+                <th>Maximum temperature</th>
+                <th>Month</th>
+                <th>Weekday</th>
+                <th>Rainfaill predicted</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{ mintemp  }}</td>
+                <td>{{ maxtemp }}</td>
+                <td>{{ month }}</td>
+                <td>{{ weekday }} </td>
+                <td>{{ rainfall }} </td>
+              </tr>
+            </tbody>
+        </table>
+
+        <p>
+
+            {% if map_graph %}
+                {{ map_graph|safe }}
+            {% else %}
+                <p>No graph was provided.</p>
+            {% endif %}
+            
+            {% autoescape off %}
+                {{ result_table }}
+            {% endautoescape %}
+
+            
+
+        </p>
+        
+        
+        
+        {% if user.is_authenticated %}
+            <p>You are currently logged in as: {{ request.user }}</p>
+        {% else %}
+            <p>You are not currently logged in. <a href="/adduser/">User registration</a></p>
+        {% endif %}
+
+      </div>
+  
+      <div class="w3-third w3-center">
+       
+      </div>
+    </div>
+  </div>
+
+</body>

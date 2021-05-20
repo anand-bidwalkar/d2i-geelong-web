@@ -1,0 +1,72 @@
+﻿{% load static %}
+{% load widget_tweaks %}
+<html>
+<head>
+    <title> Login and Registration</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+
+
+</head>
+
+<body>
+    <div class="hero">
+        <div class="logo"> </div>
+        <div class="form-box">
+            <div class="button-box">
+                <div id="btn"> </div>
+                <button type="button" class="toggle-btn" onclick="login()"> Login</button>
+                <button type="button" class="toggle-btn" onclick="register()"> Register</button>
+            </div>
+            <form id="login" method="post" class="input-group">
+                {% csrf_token %}
+                <input type="text" id="" name="username" class="input-field" placeholder="User ID" required>
+                <input type="password" name="password" class="input-field" placeholder="Password" required>
+                <input type="checkbox" class="check-box"><span>Remember Password</span>
+                <button type="submit" class="submit-btn" >Login</button>
+            </form>
+            <form id="register" class="input-group" method="post" action="{% url 'signup' %}">
+                {% csrf_token %}
+                <input type="text" name="username" class="input-field" placeholder="User ID" required>
+                <input type="email" name="email" class="input-field" placeholder="Email ID" required>
+                <input type="password" name="password1" class="input-field" placeholder="Enter Password" required>
+                <input type="password" name="password2" class="input-field" placeholder="Confirm Password" required>
+                
+                <button type="submit" class="submit-btn" >Signup</button>
+            </form>
+        </div>
+        
+    </div>
+    <script>
+        var x = document.getElementById("login");
+        var y = document.getElementById("register");
+        var z = document.getElementById("btn");
+
+        function register() {
+            x.style.left = "-400px";
+            y.style.left = "50px";
+            z.style.left = "110px";
+
+        }
+        function login() {
+            x.style.left = "50px";
+            y.style.left = "-400px";
+            z.style.left = "0";
+            hr
+        }
+
+        function display() {
+            print(document.getElementsByClassName("input-field"))
+        }
+
+    </script>
+
+
+
+
+
+</body>
+
+
+
+
+</html>

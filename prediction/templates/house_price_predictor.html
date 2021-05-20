@@ -1,0 +1,138 @@
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Starter Template - Materialize</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="./static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="./static/css2/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+
+<body>
+
+
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br><br>
+      <h1 class="header center orange-text">House Price Predictor</h1>
+      <div class="row center">
+        <h5 class="header col s12 light">Predict the price of housing unit in Geelong
+        <br>
+        </h5>
+      </div>
+
+              <div class="row">
+			  
+			  
+    <form method="post" class="col s12">
+      {% csrf_token %}
+      <div class="row">
+       
+		
+		<div class="input-field col s4">
+            <label for="last_sell_price"><b>Last Sell Price</b></label>
+            <br>
+          <input placeholder="Last Sell Price" name="Last_Sell_Price" id="last_sell_price" type="text" class="validate">
+        </div>
+		
+		<div class="input-field col s4">
+            <label for="land_size"><b>Land size</b></label>
+            <br>
+          <input placeholder="Land Size" name="Land Size" id="land_size" type="text" class="validate">
+        </div>
+		
+		
+		<div class="input-field col s4">
+            <label for="building_size"><b>Building size</b></label>
+            <br>
+          <input placeholder="Building size" name="Building size" id="building_size" type="text" class="validate">
+        </div>
+		
+		<div class="input-field col s4">
+            <label for="Bedrooms"><b>Bedrooms</b></label>
+            <br>
+          <input placeholder="Bedrooms" name="Bedrooms" id="Bedrooms" type="text" class="validate">
+        </div>
+		
+		<div class="input-field col s4">
+            <label for="Toilets"><b>Toilets</b></label>
+            <br>
+          <input placeholder="Toilets" name="Toilets" id="Toilets" type="text" class="validate">
+        </div>
+		
+		<div class="input-field col s4">
+            <label for="cars"><b>cars</b></label>
+            <br>
+          <input placeholder="cars" name="cars" id="cars" type="text" class="validate">
+        </div>
+		
+		<div class="input-field col s4">
+            <label for="Suburb code"><b>Suburb code</b></label>
+            <br>
+            {% for field in form %}
+                {{field|add_class:'validate'}}            
+            {% endfor %}
+          
+        </div>
+		
+		<div class="input-field col s4">
+            <label for="Bus stations"><b>Bus stations</b></label>
+            <br>
+          <input placeholder="Bus stations" name="Bus stations" id="Bus stations" type="text" class="validate">
+        </div>
+		
+		<div class="input-field col s4">
+            <label for="Hospital"><b>Hospital</b></label>
+            <br>
+          <input placeholder="Hospital" name="Hospital" id="Hospital" type="text" class="validate">
+        </div>
+		
+		<div class="input-field col s4">
+            <label for="Schools"><b>Schools</b></label>
+            <br>
+          <input placeholder="Schools" name="Schools" id="Schools" type="text" class="validate">
+        </div>
+		
+		<div class="input-field col s4">
+            <label for="Shopping center"><b>Shopping center</b></label>
+            <br>
+          <input placeholder="Shopping center" name="Shopping center" id="Shopping center" type="text" class="validate">
+        </div>
+
+   
+
+
+      </div>
+
+      <div class="row center">
+
+          <button type="submit" class="btn-large waves-effect waves-light orange">Predict Probability</button>
+      </div>
+    
+	</form>
+      </div>
+
+      <br>
+      {{prediction}}<br>
+
+    </div>
+  </div>
+
+
+    <br><br>
+  </div>
+  </div>
+
+  
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src=".js/materialize.js"></script>
+  <script src="js/init.js"></script>
+
+  </body>
+</html>
+

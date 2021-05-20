@@ -1,0 +1,229 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parking Analysis</title>
+  <link rel="stylesheet" href="{% static 'css/parking.css' %}">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+            charset="utf-8"></script>
+</head>
+<body>
+
+  <input type="checkbox" id="check">
+  <!--header area start-->
+  <header>
+      <label for="check">
+          <i class="fas fa-bars" id="sidebar_btn"></i>
+      </label>
+      <div class="left_area">
+          <img class="navbar-brand" src="{% static 'img/logo-inline 2.png' %}" alt="">
+      </div>
+      <div class="right_area">
+          <a href="#" class="logout_btn">Logout</a>
+      </div>
+  </header>
+  <!--header area end-->
+  <!--mobile navigation bar start-->
+  <div class="mobile_nav">
+      <div class="nav_bar">
+          <img src="{% static 'img/1.jpg' %}" class="mobile_profile_image" alt=""> <i class="fa fa-bars nav_btn"></i>
+      </div>
+      <div class="mobile_nav_items">
+          <ul>
+            <li> <a href="#dashboard"><i class="fas fa-desktop"></i><span>Dashboard</span></a> </li>
+            <li> <a class="" href="{% url 'predict' %}"><i class="fas fa-cogs"></i><span>Valuation system</span> </a> </li>
+            <li> <a href="#Future"><i class="fas fa-sliders-h"></i><span>Future Prices</span></a> </li>
+          </ul>
+      </div>
+  </div>
+  <!--mobile navigation bar end-->
+  <!--sidebar start-->
+  <div class="sidebar">
+      <div class=""></div>
+      <ul>
+          <br>
+          <li style="font-size:x-small"> <a onclick="toggle_display('parkinganalysis');"><i class="fas fa-desktop"></i><span>Parking Analysis</span></a> </li>
+          <li style="font-size:x-small"> <a onclick="toggle_display('parkingdashboard');"><i class="fas fa-desktop"></i><span>Parking Dashboard</span></a> </li>
+      </ul>
+  </div>
+  <!--sidebar end-->
+
+  <script>
+		function toggle_display(displayid) {
+			var x = document.getElementById("parkinganalysis");
+			var y = document.getElementById("parkingdashboard");
+			if (displayid == "parkinganalysis") {
+				x.style.display = "block";
+				y.style.display = "none";
+			}
+			else {
+				x.style.display = "none";
+				y.style.display = "block";
+			}
+		}
+	</script>
+
+  <div id="content" class="content">
+      <br>
+      <div id="parkinganalysis" class="card">
+        <h1 style="text-align: center;">Parking Analysis</h1>
+          
+{% block page_content %}
+        
+        <div class=>
+            <div class=>
+              <div class=>
+        
+                <style type="text/css">
+        <!--
+        .STYLE1 {
+          font-size: 17px;
+          font-weight: bold;
+        }
+        -->
+                </style>
+                <body bgcolor="#D2E9FF">
+                  
+                  <table class='w3-table-all'>
+                    <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+          <td width=396 style='width:297.3pt;border:solid windowtext 1.0pt;padding:
+          0cm 5.4pt 0cm 5.4pt'>
+          <p >
+          </span> The bar graph represents the average utilisation of parking over the entire week </p>
+        
+          <p> According to graph in general the parking gets busy on the weekends and are less busy on weekdays. </p>
+        
+          <p>utilisation of parking is more during Wednesday and sunday,and is less utilised on thursday .</p>
+        
+          <p>utilisation of parking remains constant for the other weekdays.</p>
+        
+          <p>Classifying parking utilisation in different time zones.</p>
+          </td>
+          <td width=589 style='width:441.4pt;border:solid windowtext 1.0pt;border-left:
+          none;padding:0cm 5.4pt 0cm 5.4pt'>
+          <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
+          line-height:normal'><span style='mso-no-proof:yes'><img width=670 height=347
+          id="_x0000_i1032" src={% static "img/image001.png" %}
+          alt="A screenshot of a computer&#10;&#10;Description automatically generated with medium confidence"></span></p>
+          </td>
+         </tr>
+         <tr style='mso-yfti-irow:1'>
+          <td width=396 style='width:297.3pt;border:solid windowtext 1.0pt;border-top:
+          none;padding:0cm 5.4pt 0cm 5.4pt'></td>
+          <td width=589 style='width:441.4pt;border-top:none;border-left:none;
+          border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+          padding:0cm 5.4pt 0cm 5.4pt'>
+          <p class=MsoListParagraph align=center style='margin-bottom:0cm;text-align:
+          center;text-indent:-18.0pt;line-height:normal'><span style='mso-no-proof:
+          yes'><img width=439 height=329 id="_x0000_i1031"
+          src={% static "img/image002.png" %}
+          alt="Chart, pie chart&#10;&#10;Description automatically generated"></span></p>
+          </td>
+         </tr>
+         <tr style='mso-yfti-irow:2'>
+          <td width=396 style='width:297.3pt;border:solid windowtext 1.0pt;border-top:
+          none;padding:0cm 5.4pt 0cm 5.4pt'></td>
+          <td width=589 style='width:441.4pt;border-top:none;border-left:none;
+          border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+          padding:0cm 5.4pt 0cm 5.4pt'>
+          <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
+          line-height:normal'><span style='mso-no-proof:yes'><img width=437 height=329
+          id="_x0000_i1030" src={% static "img/image003.png" %}
+          alt="Chart, pie chart&#10;&#10;Description automatically generated"></span></p>
+          </td>
+         </tr>
+         <tr style='mso-yfti-irow:3'>
+          <td width=396 style='width:297.3pt;border:solid windowtext 1.0pt;border-top:
+          none;padding:0cm 5.4pt 0cm 5.4pt'></td>
+          <td width=589 style='width:441.4pt;border-top:none;border-left:none;
+          border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+          padding:0cm 5.4pt 0cm 5.4pt'>
+          <p class=MsoListParagraph align=center style='margin-bottom:0cm;text-align:
+          center;text-indent:-18.0pt;line-height:normal'><span style='mso-no-proof:
+          yes'><img width=465 height=329 id="_x0000_i1029"
+          src={% static "img/image004.png" %}
+          alt="Chart, pie chart&#10;&#10;Description automatically generated"></span></p>
+          </td>
+         </tr>
+         <tr style='mso-yfti-irow:4'>
+          <td width=396 style='width:297.3pt;border:solid windowtext 1.0pt;border-top:
+          none;padding:0cm 5.4pt 0cm 5.4pt'></td>
+          <td width=589 style='width:441.4pt;border-top:none;border-left:none;
+          border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+          padding:0cm 5.4pt 0cm 5.4pt'>
+          <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
+          line-height:normal'><span style='mso-no-proof:yes'><img width=448 height=329
+          id="_x0000_i1028" src={% static "img/image005.png" %}
+          alt="Chart, pie chart&#10;&#10;Description automatically generated"></span></p>
+          </td>
+         </tr>
+         <tr style='mso-yfti-irow:5'>
+          <td width=396 style='width:297.3pt;border:solid windowtext 1.0pt;border-top:
+          none;padding:0cm 5.4pt 0cm 5.4pt'></td>
+          <td width=589 style='width:441.4pt;border-top:none;border-left:none;
+          border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+          padding:0cm 5.4pt 0cm 5.4pt'>
+          <p class=MsoListParagraph align=center style='margin-bottom:0cm;text-align:
+          center;text-indent:-18.0pt;line-height:normal'><span style='mso-no-proof:
+          yes'><img width=423 height=329 id="_x0000_i1027"
+          src={% static "img/image006.png" %}
+          alt="A picture containing text, electronics&#10;&#10;Description automatically generated"></span></p>
+          </td>
+         </tr>
+         <tr style='mso-yfti-irow:6'>
+          <td width=396 style='width:297.3pt;border:solid windowtext 1.0pt;border-top:
+          none;padding:0cm 5.4pt 0cm 5.4pt'></td>
+          <td width=589 style='width:441.4pt;border-top:none;border-left:none;
+          border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+          padding:0cm 5.4pt 0cm 5.4pt'>
+          <p class=MsoNormal align=center style='margin-bottom:0cm;text-align:center;
+          line-height:normal'><span style='mso-no-proof:yes'><img width=444 height=329
+          id="_x0000_i1026" src={% static "img/image007.png" %}
+          alt="Chart, pie chart&#10;&#10;Description automatically generated"></span></p>
+          </td>
+         </tr>
+         <tr style='mso-yfti-irow:7;mso-yfti-lastrow:yes'>
+          <td width=396 style='width:297.3pt;border:solid windowtext 1.0pt;border-top:
+          none;padding:0cm 5.4pt 0cm 5.4pt'></td>
+          <td width=589 style='width:441.4pt;border-top:none;border-left:none;
+          border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+          padding:0cm 5.4pt 0cm 5.4pt'>
+          <p class=MsoListParagraph align=center style='margin-bottom:0cm;text-align:
+          center;text-indent:-18.0pt;line-height:normal'><span style='mso-no-proof:
+          yes'><img width=432 height=329 id="_x0000_i1025"
+          src={% static "img/image008.png" %}
+          alt="Chart, pie chart&#10;&#10;Description automatically generated"></span></p>
+          </td>
+         </tr>
+        </table>
+               
+              </div>
+            </div>
+          </div>
+        </div>
+          &nbsp;
+          &nbsp;
+          &nbsp;
+          &nbsp;
+          &nbsp;
+
+
+      <div id="parkingdashboard" class="card">
+            <h1 style="text-align: center;">Parking Dashboard</h1>
+            <h2></h2>
+        
+        <div class='tableauPlaceholder' id='viz1611039124547' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;pa&#47;parking_data&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='parking_data&#47;Dashboard1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;pa&#47;parking_data&#47;Dashboard1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en' /><param name='filter' value='publish=yes' /></object></div>                
+        <script type='text/javascript'>                    var divElement = document.getElementById('viz1611039124547');                    var vizElement = divElement.getElementsByTagName('object')[0];                    if ( divElement.offsetWidth > 800 ) { vizElement.style.width='1000px';vizElement.style.height='827px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='1000px';vizElement.style.height='827px';} else { vizElement.style.width='100%';vizElement.style.height='1427px';}                     var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+    
+
+      </div>
+
+</body>
+</html>
+{% endblock page_content %}

@@ -1,0 +1,171 @@
+﻿{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <title>Population Prediction</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Sidebar Dashboard Template</title>
+    <link rel="stylesheet" href="{% static 'css/population.css' %}">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+            charset="utf-8"></script>
+
+</head>
+<body>
+
+    <input type="checkbox" id="check">
+    <!--header area start-->
+    <header>
+        <label for="check">
+            <i class="fas fa-bars" id="sidebar_btn"></i>
+        </label>
+        <div class="left_area">
+            <img class="navbar-brand" src="{% static 'img/logo-inline 2.png' %}" alt="">
+        </div>
+        <div class="right_area">
+            <a href="#" class="logout_btn">Logout</a>
+        </div>
+    </header>
+    <!--header area end-->
+    <!--mobile navigation bar start-->
+    <div class="mobile_nav">
+        <div class="nav_bar">
+            <img src="{% static 'img/1.jpg' %}" class="mobile_profile_image" alt=""> <i class="fa fa-bars nav_btn"></i>
+        </div>
+        <div class="mobile_nav_items">
+            <ul>
+                <li> <a href="#dashboard"><i class="fas fa-desktop"></i><span>Dashboard</span></a> </li>
+                <li> <a class="" href="{% url 'predict' %}"><i class="fas fa-cogs"></i><span>Valuation system</span> </a> </li>
+                <li> <a href="#Future"><i class="fas fa-sliders-h"></i><span>Future Prices</span></a> </li>
+            </ul>
+        </div>
+    </div>
+    <!--mobile navigation bar end-->
+    <!--sidebar start-->
+    <div class="sidebar">
+        <div class=""></div>
+        <ul>
+            <br>
+            <li style="font-size:x-small"> <a href="#dashboard"><i class="fas fa-desktop"></i><span>Population Prediction Dashboard </span></a> </li>
+
+        </ul>
+    </div>
+    <!--sidebar end-->
+
+    <div id="content" class="content">
+        <br>
+        <h1 style="text-align: center;">Population Prediction Data Visualization</h1>
+        <div id="dashboard" class="card">
+            
+            <div class='tableauPlaceholder' id='viz1602172781783' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;da&#47;dashboard_16019062188590&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz' style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='dashboard_16019062188590&#47;Dashboard1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;da&#47;dashboard_16019062188590&#47;Dashboard1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-GB' /><param name='filter' value='publish=yes' /></object></div>
+            <script type='text/javascript'>var divElement = document.getElementById('viz1602172781783');
+                var vizElement = divElement.getElementsByTagName('object')[0];
+                if (divElement.offsetWidth > 800) {
+                    vizElement.style.width = '1000px';
+                    vizElement.style.height = '827px';
+                }
+                else if (divElement.offsetWidth > 500) {
+                    vizElement.style.width = '1000px'; vizElement.style.height = '827px';
+                }
+                else {
+                    vizElement.style.width = '100%'; vizElement.style.height = '1027px';
+                }
+                var scriptElement = document.createElement('script');
+                scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+                vizElement.parentNode.insertBefore(scriptElement, vizElement);
+            </script>
+        </div>
+
+        <section>
+            <div id="valuation system" class="card">
+                <ul>
+                    <li>
+                        <a href="valuation system">
+                            <ul>
+                                <li><a href="{% url 'predict' %}" id="valuation system" class="valuation system" onclick="displaynewform.html">valuation system</a></li>
+                            </ul>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <form action="#" id="newform.html" method="post" name="newform.html" style="display: none;">
+            <div class="nameDiv" style="alignment-adjust: auto; margin-left: auto; margin-right: auto">
+                <div id="infopopup">
+                    <input id="valuation system" name="valuation system" type="file">
+                    <input type="button" id="submit" name="submit" value="ok" />
+                    <input type="button" id="cancel" name="cancel" />
+                </div>&nbsp;
+            </div>
+        </form>
+
+        <script type="text/javascript">function displaynewform() {
+                document.getElementById("newform").style.display = "block"
+            }</script>
+
+        <div id="valuation system" class="card">
+            <h6>valuation system</h6>
+        </div>
+
+        <div id="content" class="content">
+            <div id="Future Prices" class="card">
+                <div class='tableauPlaceholder' id='viz1601302428642' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Av&#47;AveragePropertyPricesGeelong&#47;Sheet1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz' style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='AveragePropertyPricesGeelong&#47;Sheet1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Av&#47;AveragePropertyPricesGeelong&#47;Sheet1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en' /><param name='filter' value='publish=yes' /></object></div>
+                <script type='text/javascript'>var divElement = document.getElementById('viz1601302428642'); var vizElement = divElement.getElementsByTagName('object')[0]; vizElement.style.width = '100%'; vizElement.style.height = (divElement.offsetWidth * 0.75) + 'px'; var scriptElement = document.createElement('script'); scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js'; vizElement.parentNode.insertBefore(scriptElement, vizElement);</script>
+            </div>
+        </div>
+
+        <script type='text/javascript'>var divElement = document.getElementById('viz1600045004602');
+
+            var vizElement = divElement.getElementsByTagName('object')[0];
+            if (divElement.offsetWidth > 800) {
+                vizElement.style.width = '100%';
+                vizElement.style.height = (divElement.offsetWidth * 0.75)
+                    + 'px';
+            } else if (divElement.offsetWidth > 500) {
+                vizElement.style.width = '100%';
+                vizElement.style.height = (divElement.offsetWidth * 0.75)
+                    + 'px';
+            } else {
+                vizElement.style.width = '100%';
+                vizElement.style.height = '1277px';
+            }
+            var scriptElement = document.createElement('script');
+            scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+            vizElement.parentNode.insertBefore(scriptElement, vizElement);</script>
+        <script type="text/javascript">$(document).ready(function () {
+                $('.sidebar ul li:first').addClass('active');
+                $('.card').hide();
+                $('.sidebar ul li a').click(function (event) {
+                    event.preventDefault();
+                    var content = $(this).attr('href');
+                    $(this).parent().addClass('active');
+                    $(this).parent().siblings().removeClass('active');
+                    $(content).show();
+                    $(content).siblings('.card').hide();
+                });
+            });</script>
+
+        <script type='text/javascript'>var divElement = document.getElementById('viz1601302428642');
+            var vizElement = divElement.getElementsByTagName('object')[0];
+            vizElement.style.width = '100%'; vizElement.style.height = (divElement.offsetWidth * 0.75) + 'px';
+            var scriptElement = document.createElement('script');
+            scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+            vizElement.parentNode.insertBefore(scriptElement, vizElement);</script>
+        <script type="text/javascript">$(document).ready(function () {
+                $('.sidebar ul li:first').addClass('active');
+                $('.card').hide();
+                $('.sidebar ul li a').click(function (event) {
+                    event.preventDefault();
+                    var content = $(this).attr('href');
+                    $(this).parent().addClass('active');
+                    $(this).parent().siblings().removeClass('active');
+                    $(content).show();
+                    $(content).siblings('.card').hide();
+                });
+            });</script>
+
+</body>
+</html>

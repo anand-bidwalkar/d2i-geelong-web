@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wifi Devices Data Analysis</title>
+  <link rel="stylesheet" href="{% static 'css/parking.css' %}">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+            charset="utf-8"></script>
+</head>
+<body>
+
+  <input type="checkbox" id="check">
+  <!--header area start-->
+  <header>
+      <label for="check">
+          <i class="fas fa-bars" id="sidebar_btn"></i>
+      </label>
+      <div class="left_area">
+          <img class="navbar-brand" src="{% static 'img/logo-inline 2.png' %}" alt="">
+      </div>
+      <div class="right_area">
+      </div>
+  </header>
+  <!--header area end-->
+  <!--mobile navigation bar start-->
+  <div class="mobile_nav">
+      <div class="nav_bar">
+          <img src="{% static 'img/1.jpg' %}" class="mobile_profile_image" alt=""> <i class="fa fa-bars nav_btn"></i>
+      </div>
+      <div class="mobile_nav_items">
+          <ul>
+            <li style="font-size:x-small"> <a onclick="toggle_display('about');"><i class="fas fa-desktop"></i><span>About</span></a> </li>
+          <li style="font-size:x-small"> <a onclick="toggle_display('raw-devices');"><i class="fas fa-desktop"></i><span>Raw Device Counts</span></a> </li>
+		  <li style="font-size:x-small"> <a onclick="toggle_display('median-hourly');"><i class="fas fa-desktop"></i><span>Median Hourly Count by Group</span></a> </li>
+          </ul>
+      </div>
+  </div>
+  <!--mobile navigation bar end-->
+  <!--sidebar start-->
+  <div class="sidebar">
+      <div class=""></div>
+      <ul>
+          <br>
+          <li style="font-size:x-small"> <a onclick="toggle_display('about');"><i class="fas fa-desktop"></i><span>About</span></a> </li>
+          <li style="font-size:x-small"> <a onclick="toggle_display('raw-devices');"><i class="fas fa-desktop"></i><span>Raw Device Counts</span></a> </li>
+		  <li style="font-size:x-small"> <a onclick="toggle_display('median-hourly');"><i class="fas fa-desktop"></i><span>Median Hourly Count by Group</span></a> </li>
+      </ul>
+  </div>
+  <!--sidebar end-->
+
+  <script>
+		function toggle_display(displayid) {
+			var x = document.getElementById("about");
+			var y = document.getElementById("raw-devices");
+			var z = document.getElementById("median-hourly");
+			if (displayid == "about") {
+				x.style.display = "block";
+				y.style.display = "none";
+				z.style.display = "none";
+			}
+			else if (displayid == "raw-devices") {
+				x.style.display = "none";
+				y.style.display = "block";
+				z.style.display = "none";
+			}
+			else {
+				x.style.display = "none";
+				y.style.display = "none";
+				z.style.display = "block";
+			}
+		}
+	</script>
+
+    <div id="about" class="content" style="display: block;">
+        <h1 style="text-align: center;">Wifi Devices Data Analysis</h1>                  
+        
+		<body bgcolor="#D2E9FF">
+		<div class="container">
+			<img src="{% static 'img/pbi.jpg' %}" class="img-fluid" alt="Responsive image" align="md-left">
+			<div class="text" style="color:black; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+				Pedestrian count analysis and model deployment:
+			
+				identify the movement of people in cbd and regional areas in harsh and normal climate conditions​
+			
+				Final conclusions​:
+				People movement is decreased in cbd region when the rain is high
+				People movement is marginally increased in regional area when the rainfall is high
+				Powerbi analysis
+			</div>
+		</div>                  
+        
+	</div>
+
+
+      <div id="raw-devices" class="content", style="display: none;">
+            <h1 style="text-align: center;">Raw Device Counts</h1>
+			<a href="{% url 'weatherform' %}" class="btn btn-primary">Click to Know more</a>
+            <h2></h2>                
+
+      </div>
+
+	<div id="median-hourly" class="content", style="display: none;">
+		<h1 style="text-align: center;">Median Hourly Count by Group</h1>
+		<a href="{% url 'wc' %}" class="btn btn-primary">Click to Know more</a>
+		<h2></h2>
+
+	</div>
+
+</body>
+</html>

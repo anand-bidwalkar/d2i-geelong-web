@@ -1,0 +1,256 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/aboutusstyle.css' %}">
+    <!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<!-- Google Fonts -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+<!-- Bootstrap core CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+<!-- Material Design Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="https://github.com/twbs/bootstrap-sass/tree/master/assets/fonts/bootstrap">
+<link rel="stylesheet" type="text/css" href="https://github.com/twbs/bootstrap-sass/blob/master/assets/stylesheets/bootstrap/_glyphicons.scss">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+ <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
+ </script>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+  <img class="navbar-brand" src="{% static 'img/logo-inline 2.png' %}" alt="">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'home' %}">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'urban' %}">Urban Planning</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'health' %}">Health</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'aboutus' %}">About us</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'contactus' %}">Contact us</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+  </div>
+</nav>
+
+<div class="container">
+    <img src="{% static 'img/1.jpg' %}" >
+   <div class="text" style="color:black; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+   We provide various services for the residents of Geelong City. These Services cover a broad range of topics such as economic growth plans, population prediction, Real estate property price estimate and accident likelihood estimates on various roads throughout the city. Our aim is to provide relevant insights from past data to help in the effective governance of the city of Geelong.
+    </div>
+</div>
+
+
+
+<div class="aboutsection">
+  <div class="Container">
+    <h1>Team member Details</h1>
+    <div class="row">
+
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <h3 style="color: black;">Anand Bidwalkar</h3>
+          <p class="title">Senior member</p>
+          <p style="color: black;">abidwalkar@deakin.edu.au</p>
+        </div>
+      </div>
+    </div>
+
+
+     <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <h3 style="color: black;">Vivekananda Malgi</h3>
+          <p class="title">Senior member</p>
+          <p style="color: black;">vmalgi@deakin.edu.au</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <h3 style="color: black;">Yijia Zhang</h3>
+        <p class="title">Senior member</p>
+        <p style="color: black;">zhangyiji@deakin.edu.au</p>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="row">
+
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <h3 style="color: black;">Omer Muzaffar Cheema</h3>
+        <p class="title">Senior member</p>
+        <p style="color: black;">ocheema@deakin.edu.au</p>
+      </div>
+    </div>
+  </div>
+
+
+   <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <h3 style="color: black;">Srija Sakiri</h3>
+        <p class="title">Senior member</p>
+        <p style="color: black;">ssakiri@deakin.edu.au</p>
+    </div>
+  </div>
+</div>
+
+<div class="col">
+  <div class="card">
+    <div class="card-body">
+      <h3 style="color: black;">Paul Moore</h3>
+      <p class="title">Senior member</p>
+      <p style="color: black;">phmoore@deakin.edu.au</p>
+  </div>
+</div>
+</div>
+
+</div>
+
+<div class="row">
+
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <h3 style="color: black;">Rishabh Jindal</h3>
+        <p class="title">Junior member</p>
+        <p style="color: black;">jindalri@deakin.edu.au</p>
+      </div>
+    </div>
+  </div>
+
+
+   <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <h3 style="color: black;">Ngoc Dung Huynh</h3>
+        <p class="title">Junior member</p>
+        <p style="color: black;">ndhuynh@gmail.com</p>
+    </div>
+  </div>
+</div>
+
+<div class="col">
+  <div class="card">
+    <div class="card-body">
+      <h3 style="color: black;">Shibendu Sanyal </h3>
+      <p class="title">Junior member</p>
+      <p style="color: black;">ssanyal@deakin.edu.au</p>
+  </div>
+</div>
+</div>
+</div>
+
+
+<div class="row">
+
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <h3 style="color: black;">xiaoran Gui</h3>
+        <p class="title">Junior member</p>
+        <p style="color: black;">xgui@deakin.edu.au</p>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+</div>
+</div>
+    
+
+  </div>
+</div>
+
+<footer class="page-footer bg-dark">
+  <div class="bg-success">
+    <div class="container">
+      <div class="row py-4 d-flex align-items-center">
+        <div class="col-md-12 text-center">
+          <a href="#"><i class="fab fa-facebook-f text-white mr-4"></i></a>
+          <a href="#"><i class="fab fa-twitter text-white mr-4"></i></a>
+          <a href="#"><i class="fab fa-google-plus-g text-white mr-4"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in text-white mr-4"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container text-center text md-left mt-5">
+    <div class="row">
+      <div class="col-md-3 mx-auto mb-4">
+        <h6 class="text-uppercase font-weight-bold"> Geelong City</h6>
+        <hr class="bg-success mb-4 mt-0 d-inline-block mx-auto" style="width: 125px; height: 2px">
+        <p class="mt-2">Geelong is a port city located on Corio Bay and the Barwon River, in the state of Victoria, Australia. Geelong is 75 kilometres (47 mi) south-west of the state capital, Melbourne. It is the second largest Victorian city, with an estimated urban population of 268,277 as of June 2018.</p>
+      </div>
+
+        <div class="col-md-3 mx-auto mb-4">
+        <h6 class="text-uppercase font-weight-bold"> For Updates </h6>
+        <hr class="bg-success mb-4 mt-0 d-inline-block mx-auto" style="width: 85px; height: 2px">
+        <p class="mt-2"> We will always try to bring the best predictions for you. If you wnat to know about our future works please do subscribe</p>
+        <form action="">
+          <input type="email">
+          <input type="submit"  value="subscribe">
+        </form>
+            </div>
+
+        <div class="col-md-3 mx-auto mb-4">
+        <h6 class="text-uppercase font-weight-bold"> usefull links</h6>
+        <hr class="bg-success mb-4 mt-0 d-inline-block mx-auto" style="width: 110px; height: 2px">
+
+         <ul class="list-unstyled">
+          <li class="my-2"><a href="{% url 'home' %}">Home</a></li>
+          <li class="my-2"><a href="{% url 'aboutus' %}">About us</a></li>
+          <li class="my-2"><a href="{% url 'contactus' %}">Contact us</a></li>
+        </ul>
+      </div>
+
+              <div class="col-md-3 mx-auto mb-4">
+        <h6 class="text-uppercase font-weight-bold"> Contact</h6>
+        <hr class="bg-success mb-4 mt-0 d-inline-block mx-auto" style="width: 75px; height: 2px">
+        <p class="mt-2">Email-Id:
+it-capstone@deakin.edu.au</p>
+
+</footer>
+<!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+
+</body>
+
+</html>
