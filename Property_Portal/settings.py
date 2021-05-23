@@ -1,6 +1,5 @@
 import os
 from pathlib import Path
-import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -13,13 +12,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'y+0!wv4jya+0t_u9zfkr1k746w((tf17%mi#c-$y^gdr=z7pf7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
 
 ALLOWED_HOSTS = [
   # TODO: add your Google Cloud Project-ID here
-    'd2i-geelong-city.herokuapp.com',
+    'geelong-disc.ts.r.appspot.com',
     'localhost',
     '127.0.0.1', # for local testing 
 ]
@@ -45,7 +44,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 # TODO: update root project directory for urlconf and wsgi app
@@ -103,6 +101,3 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 STATIC_URL = '/static/'
-
-# Activate Django-Heroku.
-django_heroku.settings(locals())

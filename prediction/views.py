@@ -25,10 +25,11 @@ from prediction.encoder import OneHotEncoder
 import plotly.express as px
 from . utils import *
 
+import tensorflow as tf
 
 module_dir = os.path.dirname(__file__)   #get current directory
-file_path = os.path.join(module_dir, 'model.pkl')
-model=pickle.load(open(file_path,'rb'))
+scaler_file_path = os.path.join(module_dir, 'saved_model.pb')
+model=tf.keras.models.load_model(module_dir)
 
 scaler_file_path = os.path.join(module_dir, 'scaler.pkl')
 transformer=pickle.load(open(scaler_file_path,'rb'))
@@ -123,18 +124,21 @@ def predict(request):
         transformed_data_list = [x[0] for x in transformed_data]
 
 
+        prediction = model.predict([transformed_data_list])
+        
+        '''
+        # Use this when project gets dedicated GCP account
         prediction = predict_custom_trained_model_sample(
-                project="954920640321",
-                endpoint_id="1037516764155478016",
+                project="xxxxx",
+                endpoint_id="xxxx",
                 location="australia-southeast1",
                 instance_list=[transformed_data_list]
             )
-
+        '''
         context ={
-            
             'prediction' : prediction
         }
-        return render(request,'prediction.html',context)
+        return render(request,'property_prediction.html',context)
     else:
         form = SuburbForm()
         context ={

@@ -1,4 +1,4 @@
-﻿{% load widget_tweaks %}
+{% load widget_tweaks %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -155,31 +155,13 @@
 		<form id="regForm" method="post" style=" width: 50%; height: 250px">
 			{% csrf_token %}
 			<h1 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Valuation System:</h1>
-			<!-- One "tab" for each step in the form: -->
-			<div class="tab">Land Details:
-				<p><input placeholder="Land Size in SQM..." oninput="this.className = ''" name="fname"></p>
-				<p><input placeholder="Last sell price in AUD..." oninput="this.className = ''" name="lname"></p>
-				<p><input placeholder="Rent Per Week in AUD..." oninput="this.className = ''" name="rent"></p>				
-			  </div>
-			  <div class="tab">House Details:
-				<p><input placeholder=" Number of bathrooms..." oninput="this.className = ''" name="bathrooms"></p>
-				<p><input placeholder="Number of bedrooms..." oninput="this.className = ''" name="bedrooms"></p>				
-				<label for="suburb">Enter Suburb name:</label>
-				{% for field in form %}
-        			{{field|add_class:'validate'}}            
-    			{% endfor %}
-			</div>
 			<div class="tab">
-				<p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Some more information required</p>
-				<p><input placeholder="Housing Unit Address" oninput="this.className = ''" name="haddress"></p>
-				<p><input placeholder="Number of Cars..." oninput="this.className = ''" name="cars"></p>
-				<p><input placeholder="Auctioned (Yes(1) or No(0))..." oninput="this.className = ''" name="auction"></p>
-
+				<p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">House Price Prediction</p>
+				<p>Predicted value for your house is : {{prediction|floatformat:2 }} $</p>
 			</div>
 			<div style="overflow:auto;">
 				<div style="float:right;">
-					<button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-					<button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                    <a href="{% url 'predict' %}" class="btn btn-primary">Restart</a>
 				</div>
 			</div>
 			<!-- Circles which indicates the steps of the form: -->
@@ -193,7 +175,28 @@
 	</div>
 
 	<div id="real-estate-dashboard" class="card" style="display: none;">
-		<div class='tableauPlaceholder' id='viz1621765097163' style='position: relative'><noscript><a href='#'><img alt='Real Estate dashboard ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Ba&#47;BasicVisualisationonRealEstate_16189237699960&#47;PropertyDashboard&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='BasicVisualisationonRealEstate_16189237699960&#47;PropertyDashboard' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Ba&#47;BasicVisualisationonRealEstate_16189237699960&#47;PropertyDashboard&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-GB' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1621765097163');                    var vizElement = divElement.getElementsByTagName('object')[0];                    if ( divElement.offsetWidth > 800 ) { vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else { vizElement.style.width='100%';vizElement.style.height='1277px';}                     var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>              
+	<div class='tableauPlaceholder' id='viz1618923785880' >
+		<noscript>
+			<a href='#'>
+				<img alt='Real Estate dashboard ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Ba&#47;BasicVisualisationonRealEstate_16189237699960&#47;PropertyDashboard&#47;1_rss.png' style='border: none' />
+			</a>
+		</noscript>
+		<object class='tableauViz'  style='display:none;'>
+		<param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> 
+		<param name='embed_code_version' value='3' /> 
+		<param name='site_root' value='' />
+		<param name='name' value='BasicVisualisationonRealEstate_16189237699960&#47;PropertyDashboard' />
+		<param name='tabs' value='no' /><param name='toolbar' value='yes' />
+		<param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Ba&#47;BasicVisualisationonRealEstate_16189237699960&#47;PropertyDashboard&#47;1.png' /> <param name='animate_transition' value='yes' />
+		<param name='display_static_image' value='yes' />
+		<param name='display_spinner' value='yes' />
+		<param name='display_overlay' value='yes' />
+		<param name='display_count' value='yes' />
+		<param name='language' value='en' />
+		<param name='filter' value='publish=yes' />
+		</object>
+	</div>
+	<script type='text/javascript'>                    var divElement = document.getElementById('viz1618923785880');                    var vizElement = divElement.getElementsByTagName('object')[0];                    if ( divElement.offsetWidth > 800 ) { vizElement.style.width='1000px';vizElement.style.height='827px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='1000px';vizElement.style.height='827px';} else { vizElement.style.width='100%';vizElement.style.height='1427px';}                     var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>              
 
 	</div>
 	
@@ -249,16 +252,7 @@
 		var x = document.getElementsByClassName("tab");
 		x[n].style.display = "block";
 		//... and fix the Previous/Next buttons:
-		if (n == 0) {
-			document.getElementById("prevBtn").style.display = "none";
-		} else {
-			document.getElementById("prevBtn").style.display = "inline";
-		}
-		if (n == (x.length - 1)) {
-			document.getElementById("nextBtn").innerHTML = "Submit";
-		} else {
-			document.getElementById("nextBtn").innerHTML = "Next";
-		}
+		
 		//... and run a function that will display the correct step indicator:
 		fixStepIndicator(n)
 	}
