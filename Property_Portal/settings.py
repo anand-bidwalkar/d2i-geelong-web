@@ -18,7 +18,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
   # TODO: add your Google Cloud Project-ID here
-    'geelong-disc.ts.r.appspot.com',
+    'd2i-geelong-city.herokuapp.com',
     'localhost',
     '127.0.0.1', # for local testing 
 ]
