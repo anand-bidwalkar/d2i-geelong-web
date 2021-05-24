@@ -1,13 +1,24 @@
 import os
+from pathlib import Path
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
 
-DEBUG = os.environ['DEBUG'] == 'True' # environment vars are strings. "convert" to boolean. lol, Python
-SECRET_KEY = os.environ['SECRET_KEY'] == 'y+0!wv4jya+0t_u9zfkr1k746w((tf17%mi#c-$y^gdr=z7pf7' 
+
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'y+0!wv4jya+0t_u9zfkr1k746w((tf17%mi#c-$y^gdr=z7pf7'
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
+
 
 ALLOWED_HOSTS = [
   # TODO: add your Google Cloud Project-ID here
-    'geelong-disc.ts.r.appspot.com',
+    'd2i-geelong-city.herokuapp.com',
     'localhost',
     '127.0.0.1', # for local testing 
 ]
@@ -59,12 +70,8 @@ TEMPLATES = [
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 DATABASES = {
     'default': {
-      'ENGINE': 'django.db.backends.postgresql',
-      'HOST': os.environ['DB_HOST'],
-      'PORT': os.environ['DB_PORT'],
-      'NAME': os.environ['DB_NAME'],
-      'USER': os.environ['DB_USER'],
-      'PASSWORD': os.environ['DB_PASSWORD']
+      'ENGINE': 'django.db.backends.sqlite3',
+      'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -88,15 +95,9 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-'''
-# Static files (CSS, JavaScript, Images)
-STATIC_URL = os.environ['STATIC_URL'] # /static/ if DEBUG else Google Cloud bucket url
 
-# collectstatic directory (located OUTSIDE the base directory)
-# TODO: configure the name and path to your static bucket directory (where collectstatic will copy to)
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'geelong-disc-static')
+# https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATICFILES_DIRS = [
-  # TODO: configure the name and path to your development static directory
-    os.path.join(BASE_DIR, 'static'), # static directory (in the top level directory) for local testing
-]'''
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+STATIC_URL = '/static/'
