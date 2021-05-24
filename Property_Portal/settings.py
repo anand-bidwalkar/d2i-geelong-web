@@ -72,7 +72,7 @@ TEMPLATES = [
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 DATABASES = {
     'default': dj_database_url.config(
-        default=config('postgres://olmecjtjazzumi:70c0c3b27d5bb5503c4c926047f503c78b1b4efbc39260d80dc26ce9752cc4b3@ec2-52-0-114-209.compute-1.amazonaws.com:5432/db8s78ut7174i8')
+        default=config('DATABASE_URL')
     )
 }
 
