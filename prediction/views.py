@@ -25,12 +25,10 @@ from prediction.encoder import OneHotEncoder
 import plotly.express as px
 from . utils import *
 
-import tensorflow as tf
+import requests
+import json
 
 module_dir = os.path.dirname(__file__)   #get current directory
-scaler_file_path = os.path.join(module_dir, 'saved_model.pb')
-model=tf.keras.models.load_model(module_dir)
-
 scaler_file_path = os.path.join(module_dir, 'scaler.pkl')
 transformer=pickle.load(open(scaler_file_path,'rb'))
 
@@ -123,8 +121,15 @@ def predict(request):
         transformed_data = transformer.fit_transform(data_df)
         transformed_data_list = [x[0] for x in transformed_data]
 
+        url = 'https://d2i-model-api.herokuapp.com/api/'
 
-        prediction = model.predict([transformed_data_list])
+        j_data = json.dumps([transformed_data_list])
+        headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8'}
+        r = requests.post(url, data=j_data, headers=headers)
+        s = json.loads(r.text)
+        pred_result = s['Result'] if 'Result' in s.keys() else None
+
+        #prediction = model.predict([transformed_data_list])
         
         '''
         # Use this when project gets dedicated GCP account
@@ -136,7 +141,7 @@ def predict(request):
             )
         '''
         context ={
-            'prediction' : prediction
+            'prediction' : pred_result
         }
         return render(request,'property_prediction.html',context)
     else:
