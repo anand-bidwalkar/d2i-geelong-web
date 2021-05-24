@@ -288,8 +288,12 @@ TEMPLATES = [
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 DATABASES = {
     'default': {
-      'ENGINE': 'django.db.backends.sqlite3',
-      'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'db8s78ut7174i8', # The Server name from 1.5
+        'USER': 'olmecjtjazzumi', # The username from 1.6
+        'PASSWORD': '70c0c3b27d5bb5503c4c926047f503c78b1b4efbc39260d80dc26ce9752cc4b3', # The password from installation
+        'HOST': 'ec2-52-0-114-209.compute-1.amazonaws.com' # Host name/address from 1.6,
+        'PORT': '5432' # Port from 1.6
     }
 }
 
