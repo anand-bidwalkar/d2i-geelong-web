@@ -28,6 +28,13 @@ from . utils import *
 import requests
 import json
 
+# Additional imports for AQI forecast predictions
+import pytz
+from datetime import datetime
+import math
+from scipy.special import inv_boxcox
+import plotly.graph_objects as go
+
 module_dir = os.path.dirname(__file__)   #get current directory
 scaler_file_path = os.path.join(module_dir, 'scaler.pkl')
 transformer=pickle.load(open(scaler_file_path,'rb'))
@@ -75,10 +82,208 @@ def parkinganalysis(request):
     return render(request,'parkinganalysis.html')
 
 def AQI(request):
-    return render(request,'AQI.html')
 
-def AQI_form(request):
-    return render(request,'AQI_form.html')
+    #First we are grabbing the current weather forecast for Geelong - you can modify lat, lon to grab forecasts for other areas
+
+    lat = '-38.150002'
+    lon = '144.350006'
+    exclude = 'minutely,hourly,alerts'
+    units = 'metric'
+    api_key = '5605e86f9bd5db980b3c2dfbd330811e'
+
+    url = 'https://api.openweathermap.org/data/2.5/onecall?lat=-38.150002&lon=144.350006&exclude=minutely,hourly,alerts&units=metric&appid=5605e86f9bd5db980b3c2dfbd330811e'
+
+
+    response = requests.get(url)
+    weather_data = json.loads(response.text)
+
+    # we will pass the plotly graphs and other data through to the page with a dictionary
+    page_data = {}
+
+    # next we are extracting the daily weather forecasting data for the next 7 days
+    
+    daily = weather_data['daily']
+
+    # we will pass through the weekly forecast to the page - not sure if we are going to use it yet....
+    weekly_forecast = []
+
+    for entry in daily:
+        dt = datetime.fromtimestamp(entry['dt'], pytz.timezone('Australia/Victoria'))
+        temp = entry['temp']
+        wind_gust = entry['wind_gust']
+        wind_dir = entry['wind_deg']
+        try:
+            rain = entry['rain']
+        except:
+            rain = 0
+        
+        forecast = {'day' : dt,
+                    'maxtemp' : temp['max'],
+                    'rainfall' : rain,
+                    'spd_maxgust' : wind_gust,
+                    'month' : dt.month}
+        
+        weekly_forecast.append(forecast)
+
+    # add the forecast to the page data   
+    page_data['forecast'] = weekly_forecast
+
+    # Creating a dataframe to work with the feature transformations
+    dfForecast = pd.DataFrame(weekly_forecast)
+    dfForecast['mnth_sin'] = np.sin((dfForecast.month-1)*(2.*np.pi/12))
+    dfForecast['month_cos'] = np.cos((dfForecast.month-1)*(2.*np.pi/12))
+    dfForecast.rainfall = dfForecast.rainfall.transform(lambda x: math.log(x + 1))
+    dfForecast = dfForecast.drop(['day', 'month'], axis = 1)
+
+    # manually scaling the data according to the parameters of the models training data
+    temp_mean = 20.295245
+    temp_sd = 5.323982
+
+    rf_mean = 0.154721
+    rf_sd = 0.296177
+
+    ws_mean = 36.223193
+    ws_sd = 11.415994
+
+    dfForecast['maxtemp'] = dfForecast['maxtemp'].apply(lambda x: (x - temp_mean) / temp_sd)
+    dfForecast['rainfall'] = dfForecast['rainfall'].apply(lambda x: (x - rf_mean) / rf_sd)
+    dfForecast['spd_maxgust'] = dfForecast['spd_maxgust'].apply(lambda x: (x - ws_mean) / ws_sd)
+
+    #debug print to console
+    #print(dfForecast)
+
+    # from here, we run the transformed weather data against the model through API endpoint
+    endpoint_url = 'http://d2i-model-api.herokuapp.com/bulk_aqi_prediction/'
+    forecast_data = dfForecast.values
+    forecast_data = forecast_data.tolist()
+
+    aqi_forecast = []
+    
+    j_bulk = json.dumps(forecast_data)
+    headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8'}
+    r = requests.post(endpoint_url, data=j_bulk, headers=headers)
+    result = json.loads(r.text)
+
+    aqi_forecast = [float(i) for i in result['Results']]
+    
+    #this line can be uncommented to use the model locally
+    #aqi_forecast = aqi_model.predict(dfForecast)
+
+    # the model is predicitng a box cox transformation of the target variable, inverse that transformation to get the index value
+    fitted_lambda = 0.16332629036390786
+    aqi_forecast = inv_boxcox(aqi_forecast, fitted_lambda)
+    #debug print to console
+    #print(aqi_forecast)
+
+    
+
+    # This next part will plot the gauge plots from plotly and render html strings
+    days = []
+    for entry in daily:
+        dt = datetime.fromtimestamp(entry['dt'], pytz.timezone('Australia/Victoria'))
+        friendly_date = dt.strftime('%d %B %Y')
+        days.append(friendly_date)
+
+    i = 0
+    while i < len(days):
+        fig = go.Figure(go.Indicator(
+            domain = {'x': [0, 1], 'y': [0, 1]},
+            value = aqi_forecast[i],
+            mode = "gauge+number",
+            title = {'text': f"pm10 index forecast: {days[i]}"},
+            gauge = {'axis': {'range': [None, 150]},
+                    'bar': {'color': "green"},
+                    'steps' : [
+                        {'range': [0, 51], 'color': "lightgreen"},
+                        {'range': [51, 101], 'color': "yellow"},
+                        {'range': [101, 150], 'color': "orange"}],
+                    #'threshold' : {'line': {'color': "red", 'width': 4}, 'thickness': 0.75, 'value': aq_forecast[i]}
+                    }))
+        
+        graph = fig.to_html(full_html=False, default_height=300, default_width=400)
+        page_data[f'plot_{i}'] = graph
+        i += 1  
+    
+    #debug to console
+    print(page_data.keys())
+
+    # debug to console
+    # print(plots)
+
+    # this section will 
+    if request.method == 'POST':
+        data = []
+        for key in request.POST:
+            print(key)
+            if key != 'csrfmiddlewaretoken':
+                value = request.POST[key]
+                data.append(value)
+        
+        data = [float(i) for i in data]
+        #print(data)
+
+        feats = ['maxtemp', 'rainfall', 'spd_maxgust', 'month']
+
+        onthefly = dict(zip(feats, data))
+        #print(onthefly)
+
+        # performing the same data transformation on the submitted data
+        dfOnTheFly = pd.DataFrame(onthefly, index = [0])
+        dfOnTheFly['mnth_sin'] = np.sin((dfOnTheFly.month-1)*(2.*np.pi/12))
+        dfOnTheFly['month_cos'] = np.cos((dfOnTheFly.month-1)*(2.*np.pi/12))
+        dfOnTheFly.rainfall = dfOnTheFly.rainfall.transform(lambda x: math.log(x + 1))
+        dfOnTheFly = dfOnTheFly.drop(['month'], axis = 1)
+
+        dfOnTheFly['maxtemp'] = dfOnTheFly['maxtemp'].apply(lambda x: (x - temp_mean) / temp_sd)
+        dfOnTheFly['rainfall'] = dfOnTheFly['rainfall'].apply(lambda x: (x - rf_mean) / rf_sd)
+        dfOnTheFly['spd_maxgust'] = dfOnTheFly['spd_maxgust'].apply(lambda x: (x - ws_mean) / ws_sd)
+
+        # run the transformed data through the model
+
+        endpoint = 'http://d2i-model-api.herokuapp.com/bulk_aqi_prediction/'
+
+        otf_data = dfOnTheFly.values
+        otf_data = otf_data.tolist()
+        j_data = json.dumps(otf_data)
+        print(f'j_data: {j_data}')
+        headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8'}
+        r = requests.post(endpoint, data=j_data, headers=headers)
+        print(f'on the fly: {r}')
+        result = json.loads(r.text)
+
+        '''aqi_predict = aqi_model.predict(dfOnTheFly)
+        print(aqi_predict)'''
+
+        aqi_predict = inv_boxcox(float(result['Results'][0]), fitted_lambda)
+        #print(f'Result from box cox inversion: {aqi_predict}')
+
+        #generate an on the fly plot for the submitted data
+        fig = go.Figure(go.Indicator(
+            domain = {'x': [0, 1], 'y': [0, 1]},
+            value = aqi_predict,
+            mode = "gauge+number",
+            title = {'text': f"pm10 index prediction"},
+            gauge = {'axis': {'range': [None, 150]},
+                    'bar': {'color': "green"},
+                    'steps' : [
+                        {'range': [0, 51], 'color': "lightgreen"},
+                        {'range': [51, 101], 'color': "yellow"},
+                        {'range': [101, 150], 'color': "orange"}],
+                    }))
+        
+        graph = fig.to_html(full_html=False, default_height=300, default_width=400)
+
+        #add the plot and the submitted data to the page data
+        page_data['plot_onthefly'] = graph
+        page_data['submitted_data'] = onthefly
+
+
+        #prediction=model.predict([data])
+        #form = SuburbForm(request.POST)
+        
+
+    
+    return render(request,'AQI.html', page_data)
 
 def aboutus(request):
     return render(request,'aboutus.html')
@@ -121,7 +326,13 @@ def predict(request):
         transformed_data = transformer.fit_transform(data_df)
         transformed_data_list = [x[0] for x in transformed_data]
 
+        '''
+        # Production
         url = 'https://d2i-model-api.herokuapp.com/api/'
+        '''
+
+        url = 'http://127.0.0.1:5000/api/'
+        
 
         j_data = json.dumps([transformed_data_list])
         headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8'}
@@ -129,6 +340,7 @@ def predict(request):
         s = json.loads(r.text)
         pred_result = s['Result'] if 'Result' in s.keys() else None
 
+               
         #prediction = model.predict([transformed_data_list])
         
         '''

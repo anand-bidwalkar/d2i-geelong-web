@@ -23,5 +23,4 @@ urlpatterns = [
     path('region/', views.region_form, name = 'wc'),
     path('prediction/', views.weather_prediction, name = 'wp'),
     path('AQI/', views.AQI, name = 'AQI'),
-    path('AQI_form/', views.AQI_form, name = 'AQI_form')
 ]

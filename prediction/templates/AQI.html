@@ -1,106 +1,588 @@
+
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Air Quality Analysis</title>
-  <link rel="stylesheet" href="{% static 'css/AQI.css' %}">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
-            charset="utf-8"></script>
+  <title>Air Quality Modelling</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Sidebar Dashboard Template</title>
+  <link rel="stylesheet" href="{% static 'css/propertystyle.css' %}">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+          charset="utf-8"></script>
+  <title>Air Quality Index Forecasting</title>
+  <style>
+        table {
+            width: 50%;
+            align-content: center;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
+            gap: 0px 0px;
+            grid-template-areas:
+                "Forecast Forecast Forecast Forecast"
+                "Form Form Prediction Prediction"
+                "Context Context Context Context";
+            padding-left: 300px;
+            padding-top: 200px;
+        }
+        .Forecast { grid-area: Forecast; }
+        .Form { grid-area: Form; }
+        .Prediction { grid-area: Prediction; }
+        .Context { grid-area: Context; }
+        body {
+		align-content: center;
+		background-color: #f1f1f1;
+	}
+
+    .hidden {
+		display: none;
+    
+	}
+
+	#AQIForm {
+		background-color: #ffffff;
+		margin: 100px auto;
+		font-family: Raleway;
+		padding: 40px;
+		width: 70%;
+		min-width: 300px;
+	}
+
+	h1 {
+		text-align: center;
+	}
+
+	input {
+		padding: 10px;
+		width: 100%;
+		font-size: 17px;
+		font-family: Raleway;
+		border: 1px solid #aaaaaa;
+	}
+
+		/* Mark input boxes that gets an error on validation: */
+		input.invalid {
+			background-color: #ffdddd;
+		}
+
+	/* Hide all steps by default: */
+	.tab {
+		display: none;
+	}
+
+	button {
+		background-color: #4CAF50;
+		color: #ffffff;
+		border: none;
+		padding: 10px 20px;
+		font-size: 17px;
+		font-family: Raleway;
+		cursor: pointer;
+	}
+
+		button:hover {
+			opacity: 0.8;
+		}
+
+	#prevBtn {
+		background-color: #bbbbbb;
+	}
+
+	/* Make circles that indicate the steps of the form: */
+	.step {
+		height: 15px;
+		width: 15px;
+		margin: 0 2px;
+		background-color: #bbbbbb;
+		border: none;
+		border-radius: 50%;
+		display: inline-block;
+		opacity: 0.5;
+	}
+
+		.step.active {
+			opacity: 1;
+		}
+
+		/* Mark the steps that are finished and valid: */
+		.step.finish {
+			background-color: #4CAF50;
+		}
+
+    </style>
 </head>
 <body>
+    <input type="checkbox" id="check">
+	<!--header area start-->
+	<header>
+		<label for="check">
+			<i class="fas fa-bars" id="sidebar_btn"></i>
+		</label>
+		<div class="left_area">
+			<img class="navbar-brand" src="{% static 'img/logo-inline 2.png' %}" alt="">
+		</div>
+		<div class="right_area">
+			<a href="#" class="logout_btn">Logout</a>
+		</div>
+	</header>
+	<!--header area end-->
 
-  <input type="checkbox" id="check">
-  <!--header area start-->
-  <header>
-      <label for="check">
-          <i class="fas fa-bars" id="sidebar_btn"></i>
-      </label>
-      <div class="left_area">
-          <img class="navbar-brand" src="{% static 'img/logo-inline 2.png' %}" alt="">
-      </div>
-      <div class="right_area">
-      </div>
-  </header>
-  <!--header area end-->
-  <!--mobile navigation bar start-->
-  <div class="mobile_nav">
-      <div class="nav_bar">
-          <img src="{% static 'img/1.jpg' %}" class="mobile_profile_image" alt=""> <i class="fa fa-bars nav_btn"></i>
-      </div>
-      <div class="mobile_nav_items">
-          <ul>
-            <li style="font-size:x-small"> <a onclick="toggle_display('about');"><i class="fas fa-desktop"></i><span>About</span></a> </li>
-          <li style="font-size:x-small"> <a onclick="toggle_display('raw-devices');"><i class="fas fa-desktop"></i><span>Air Quality predictor</span></a> </li>
-          </ul>
-      </div>
-  </div>
-  <!--mobile navigation bar end-->
-  <!--sidebar start-->
-  <div class="sidebar">
-      <div class=""></div>
-      <ul>
-          <br>
-          <li style="font-size:x-small"> <a onclick="toggle_display('about');"><i class="fas fa-desktop"></i><span>About</span></a> </li>
-          <li style="font-size:x-small"> <a onclick="toggle_display('raw-devices');"><i class="fas fa-desktop"></i><span>Air Quality predictor</span></a> </li>
-      </ul>
-  </div>
-  <!--sidebar end-->
-
-  <script>
+	<!--sidebar start-->
+	<div class="sidebar">
+		<div class=""></div>
+		<ul>
+			<li style="font-size: small"> <a class="sidebar-link", onclick="toggle_display('7day');"><i class="fas fa-cogs"></i><span>7 Day forecast</span></a> </li>
+			<li style="font-size: small"> <a onclick="toggle_display('AQIFormPanel');"><i class="fas fa-cogs"></i><i class="fas fa-desktop"></i><span>AQI Model Form</span></a> </li>
+			<li style="font-size: small"> <a onclick="toggle_display('Context');"><i class="fas fa-cogs"></i><span>Context</span></a> </li>
+            <li style="font-size: small"> <a onclick="toggle_display('dashboard');"><i class="fas fa-cogs"></i><span>Dashboard</span></a> </li>
+		</ul>
+	</div>
+	<!--sidebar end-->
+	<script>
 		function toggle_display(displayid) {
-			var x = document.getElementById("about");
-			var y = document.getElementById("raw-devices");
-			var z = document.getElementById("median-hourly");
-			if (displayid == "about") {
+            var v = document.getElementById("dashboard")
+            var w = document.getElementById("Prediction");
+			var x = document.getElementById("7day");
+			var y = document.getElementById("AQIFormPanel");
+			var z = document.getElementById("Context");
+			if (displayid == "7day") {
+                v.style.display = "none";
 				x.style.display = "block";
+                w.style.display = "none"
 				y.style.display = "none";
 				z.style.display = "none";
+                location.href = "#";
+                location.href = "#7day";
 			}
-			else if (displayid == "Air Quality predictor") {
-				x.style.display = "none";
+			else if (displayid == "AQIFormPanel")  {
+                v.style.display = "none";
 				y.style.display = "block";
+                w.style.display = "block"
+				x.style.display = "none";
 				z.style.display = "none";
+                location.href = "#";
+                location.href = "#AQIFormPanel";
+			}
+            else if (displayid == "Context")  {
+                v.style.display = "none";
+				y.style.display = "none";
+                w.style.display = "none"
+				x.style.display = "none";
+				z.style.display = "block";
+                location.href = "#";
+                location.href = "#Context";
 			}
 			else {
+                v.style.display = "block";
+				z.style.display = "none";
+                w.style.display = "none"
 				x.style.display = "none";
 				y.style.display = "none";
-				z.style.display = "block";
+                location.href = "#";
+                location.href = "#dashboard";
 			}
 		}
 	</script>
+    <div class="grid-container" >
+        <div class="Forecast" id="7day" style="padding-top: 200px;">
+            {% if plot_0 %}
 
-    <div id="about" class="content" style="display: block;">
-        <h1 style="text-align: center;">Air Quality Index</h1>                  
-        
-		<body bgcolor="#D2E9FF">
-		<div class="container">
-			<img src="{% static 'img/pbi.jpg' %}" class="img-fluid" alt="Responsive image" align="md-left">
-			<div class="text" style="color:black; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
-				Air quality data and model deployment:
-			
-				Identify the Air quality data and predict the next 7 days Air quality
+                <p><h2>Geelong City: PM10 7 Day Forecast</h2>
+                    The table below provides PM10 Air Quality Index forecasts for today and the next 7 days using weather forecasting data obtained from OpenWeatherMap (https://openweathermap.org/)
+                    <br> 
+                </p>
+                <div class = "table-container">
+                <table>
+                    <thead>
+                      <tr>
+                        <td>{{ plot_0|safe }}</td>
+                        <td>{{ plot_1|safe }}</td>
+                        <td>{{ plot_2|safe }}</td>
+                        <td>{{ plot_3|safe }}</td>
+                        <td>{{ plot_4|safe }}</td>
+                        <td>{{ plot_5|safe }}</td>
+                        <td>{{ plot_6|safe }}</td>
+                        <td>{{ plot_7|safe }}</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><p> Forecast for: {{ forecast.0.day|safe }}</p>
+                            <p>
+                                <ul>
+                                    <li><b>Max Temp: </b> {{ forecast.0.maxtemp }}</li>
+                                    <li><b>Precipation (mm): </b>{{  forecast.0.rainfall }}</li>
+                                    <li><b>Max wind speed: </b> {{ forecast.0.spd_maxgust  }}</li>
+                                </ul>
+                            </p>
+                        </td>
+                        <td>
+                            <p> Forecast for: {{ forecast.1.day|safe }}</p>
+                            <p>
+                                <ul>
+                                    <li><b>Max Temp: </b> {{ forecast.1.maxtemp }}</li>
+                                    <li><b>Precipation (mm): </b>{{  forecast.1.rainfall }}</li>
+                                    <li><b>Max wind speed: </b> {{ forecast.1.spd_maxgust  }}</li>
+                                </ul>
+                            </p>
+                        </td>
+                        <td>
+                            <p> Forecast for: {{ forecast.2.day|safe }}</p>
+                            <p>
+                                <ul>
+                                    <li><b>Max Temp: </b> {{ forecast.2.maxtemp }}</li>
+                                    <li><b>Precipation (mm): </b>{{  forecast.2.rainfall }}</li>
+                                    <li><b>Max wind speed: </b> {{ forecast.2.spd_maxgust  }}</li>
+                                </ul>
+                            </p>
+                        </td>
+                        <td>
+                            <p> Forecast for: {{ forecast.3.day|safe }}</p>
+                            <p>
+                                <ul>
+                                    <li><b>Max Temp: </b> {{ forecast.3.maxtemp }}</li>
+                                    <li><b>Precipation (mm): </b>{{  forecast.3.rainfall }}</li>
+                                    <li><b>Max wind speed: </b> {{ forecast.3.spd_maxgust  }}</li>
+                                </ul>
+                            </p>
+                        </td>
+                        <td><p> Forecast for: {{ forecast.4.day|safe }}</p>
+                            <p>
+                                <ul>
+                                    <li><b>Max Temp: </b> {{ forecast.4.maxtemp }}</li>
+                                    <li><b>Precipation (mm): </b>{{  forecast.4.rainfall }}</li>
+                                    <li><b>Max wind speed: </b> {{ forecast.4.spd_maxgust  }}</li>
+                                </ul>
+                            </p>
+                        </td>
+                        <td>
+                            <p> Forecast for: {{ forecast.5.day|safe }}</p>
+                            <p>
+                                <ul>
+                                    <li><b>Max Temp: </b> {{ forecast.5.maxtemp }}</li>
+                                    <li><b>Precipation (mm): </b>{{  forecast.5.rainfall }}</li>
+                                    <li><b>Max wind speed: </b> {{ forecast.5.spd_maxgust  }}</li>
+                                </ul>
+                            </p>
+                        </td>
+                        <td>
+                            <p> Forecast for: {{ forecast.6.day|safe }}</p>
+                            <p>
+                                <ul>
+                                    <li><b>Max Temp: </b> {{ forecast.6.maxtemp }}</li>
+                                    <li><b>Precipation (mm): </b>{{  forecast.6.rainfall }}</li>
+                                    <li><b>Max wind speed: </b> {{ forecast.6.spd_maxgust  }}</li>
+                                </ul>
+                            </p>
+                        </td>
+                        <td>
+                            <p> Forecast for: {{ forecast.7.day|safe }}</p>
+                            <p>
+                                <ul>
+                                    <li><b>Max Temp: </b> {{ forecast.7.maxtemp }}</li>
+                                    <li><b>Precipation (mm): </b>{{  forecast.7.rainfall }}</li>
+                                    <li><b>Max wind speed: </b> {{ forecast.7.spd_maxgust  }}</li>
+                                </ul>
+                            </p>
+                        </td>
+                        </tr>
 
-			</div>
-		</div>                  
-        
-	</div>
+                    </tbody>
+                    </table>
+                </div>
+                {% endif %}
+
+        </div>
+
+        <div class="Form" id="AQIFormPanel" style="padding-top: 100px; display: none;">
+            <h2>Air Quality Index - Model Test Form</h2>
+            <form id="AQIForm" method="post" class = "AQIForm" style=" width: 75%; height: 400px">
+                {% csrf_token %}
+                <h2 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Air Quality Index Prediction Features:</h2>
+                <div>
+                    <p>Max temperature: <input placeholder="Maximum forecast temperature..." oninput="this.className = ''" name="maxtemp"></p>
+                    <p>Rainfall: <input placeholder="Forecasted rainfall..." oninput="this.className = ''" name="rainfall"></p>
+                    <p>Max wind speed: <input placeholder="Maximum forecasted wind speed..." oninput="this.className = ''" name="spd_maxgust"></p>
+                    <p>Month: <input placeholder="Month number e.g. 6 for June" oninput="this.className = ''" name="mnth"></p>
+                    <button type="submit">Submit</button>
+                </div>
 
 
-      <div id="Air Quality predictor" class="content", style="display: none;">
-            <h1 style="text-align: center;">Air Quality predictor</h1>
-			<a href="{% url 'AQI_form' %}" class="btn btn-primary">Click to Know more</a>
-            <h2></h2>                
+
+            </form>
+
+        </div>
+
+        <div class="Prediction" id="Prediction" style="padding-top: 200px; display: none;">
+            {% if plot_onthefly %}
+
+                    <h3>Using the submitted data, the model has made the following prediction:</h3>
+
+                    <table>
+                        <thead>
+                          <tr>
+                            <th>Max Temp</th>
+                            <th>Rainfall</th>
+                            <th>Max wind speed</th>
+                            <th>Month</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>{{ submitted_data.maxtemp }}</td>
+                            <td>{{ submitted_data.rainfall }}</td>
+                            <td>{{ submitted_data.spd_maxgust }}</td>
+                            <td>{{ submitted_data.month }}</td>
+                          </tr>
+                          <tr>
+                            <td colspan="4">{{ plot_onthefly|safe }}</td>
+                          </tr>
+                        </tbody>
+                        </table>
+            
+            {% else %}
+                        <h2 align = "center">Use the form on the left to query the model</h2>
+            {% endif %}
+
+        </div>
+
+        <div class="Context" id="Context" style="padding-top: 200px; width: 50%; display: none;">
+            <div class=WordSection1>
+
+                <p class=MsoNormal><b>Why care about air quality?</b></p>
+                
+                <p class=MsoNormal>Exposure of a population to poor air quality can have a significant
+                impact on the health of that population.  During the Industrial Revolution,
+                increased burning of fossil fuels took a heavy toll on the mortality and
+                morbidity of populations. For example, the Great Smog of London in 1952
+                directly claimed the lives of over 4,000 people [1].  Even in more modern
+                times, atmospheric pollutants are well established causes of significant respiratory
+                morbidity [2].</p>
+                
+                <p class=MsoNormal>The factors influencing Air Quality are wide and varied,
+                ranging from natural (e.g. bush fires and pollination) and climactic (e.g.
+                weather patterns) to anthropogenic factors ( e.g. industrial processes and
+                travel).  In this analysis, we explore the impact of weather on the measured
+                Air Quality around Geelong City. </p>
+                
+                <p class=MsoNormal><b>Air Quality Indexes</b></p>
+                
+                <p class=MsoNormal>Air Quality Indexes are commonly used to communicate a
+                weighted average of different air quality factors over a 12 hr period.  The
+                modern Air Quality Index calculation, NowCast, was developed by the US EPA and has
+                been widely adopted by meteorology institutions and air quality monitoring organisations
+                around the world [3]. </p>
+                
+                <p class=MsoNormal>Air quality indexes are generated for five major atmospheric
+                pollutants:</p>
+                
+                <p class=MsoListParagraphCxSpFirst style='text-indent:-18.0pt'><span
+                style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </span></span>Ground level ozone</p>
+                
+                <p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+                style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </span></span>Particulate pollution</p>
+                
+                <p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+                style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </span></span>Carbon Monoxide</p>
+                
+                <p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+                style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </span></span>Sulphur Dioxide</p>
+                
+                <p class=MsoListParagraphCxSpLast style='text-indent:-18.0pt'><span
+                style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </span></span>Nitrogen Dioxide</p>
+                
+                <p class=MsoNormal>Air Quality Indexes are measured on the scale and categories
+                provided in the table below [3]:</p>
+                
+                <p class=MsoNormal>Table 1. Air Quality Index categorisation according the US
+                EPA.</p>
+                
+                <p class=MsoNormal><img width=602 height=206 id="Picture 2"
+                src="{% static 'img/aqi1.jpg' %}"></p>
+                
+                <p class=MsoNormal>For this analysis we focus on particulate pollution, specifically
+                on the PM10 category of particulate pollution. </p>
+                
+                <p class=MsoNormal><b>PM10 Particulates</b></p>
+                
+                <p class=MsoNormal>PM10 particulates are particles that range in size from 10
+                micrometers down to 2.5 micrometers.  This category includes the particles
+                found in smoke, dust, construction pollutants and many natural herbaceous pollens. 
+                PM10 particles are small enough to easily bypass the natural filters of your
+                nose and throat and enter into the lungs.  In human health they are commonly
+                related to respiratory irritation, allergy reactions, scratchy throats and
+                stinging eyes.  These particles can be particularly hazardous for people who
+                suffer from chronic respiratory illnesses such as asthma and hay fever.  </p>
+                
+                <p class=MsoNormal>Common sources for PM10 particles include [4]:</p>
+                
+                <p class=MsoListParagraphCxSpFirst style='text-indent:-18.0pt'><span
+                style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </span></span>Dust</p>
+                
+                <p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+                style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </span></span>Smoke</p>
+                
+                <p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+                style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </span></span>Sea salt</p>
+                
+                <p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+                style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </span></span>Pollens and mould spores</p>
+                
+                <p class=MsoListParagraphCxSpLast style='text-indent:-18.0pt'><span
+                style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </span></span>Vehicle exhaust fumes</p>
+                
+                <p class=MsoNormal><b>Meteorological impacts on Air Quality</b></p>
+                
+                <p class=MsoNormal>Weather factors play a major role in dispersion of
+                particulate pollutants in the atmosphere. In the previous example of the Great
+                Smog of London, the event was partially attributed to unfavourable weather
+                conditions at the time, including lower temperatures, denser air, and low winds
+                which allowed the particulates from coal burning industrial zones to gather and
+                condense in the city.  In modern day cities which suffer from heavy air
+                pollution, such as Singapore, hazy conditions can be cleared in less than an
+                hour with an increase in the wind speed.</p>
+                
+                <p class=MsoNormal><b>Our modelling approach.</b></p>
+                
+                <p class=MsoNormal>For this analysis we explore the relationship between different
+                weather factors and the level of particulate pollutants in the air as measured
+                by the Air Quality Index.</p>
+                
+                <p class=MsoNormal>Daily weather data for Geelong City has been collected from
+                the Bureau of Meteorology and Air Quality Index data has been collected from the
+                World Air Quality Project (<a href="aqicn.org">aqicn.org</a>).  </p>
+                
+                <p class=MsoNormal>Data cleaning and preparation steps have been completed to resolve
+                issues with missing data, outliers, and data distributions.  Relationships
+                between different weather factors and the air quality were explored using
+                correlation matrices like the one below:</p>
+                
+                <p class=MsoNormal><img border=0 width=602 height=388 id="Picture 1"
+                src="{% static 'img/aqi2.jpg' %}"
+                alt="Graphical user interface, application, Teams&#10;&#10;Description automatically generated"></p>
+                
+                <p class=MsoNormal>Different predictive modelling approaches have been explored
+                in two general categories of categorical prediction and regression modelling.  In
+                the end our team has chosen regression models as the category representation in
+                the data set is low – Geelong has only recorded the top three categories in
+                Table 1., with the ‘unhealthy for Sensitive groups’ category only appearing in
+                less than 1% of the training data.</p>
+                
+                <p class=MsoNormal>The final model used in this web portal deployment is a
+                Support Vector Regression model which uses the following features:</p>
+                
+                <p class=MsoListParagraphCxSpFirst style='text-indent:-18.0pt'><span
+                style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </span></span>Maximum Temperature (C)</p>
+                
+                <p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+                style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </span></span>Rainfall amount (mm)</p>
+                
+                <p class=MsoListParagraphCxSpMiddle style='text-indent:-18.0pt'><span
+                style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </span></span>Speed of Maximum Wind Gust (km/h)</p>
+                
+                <p class=MsoListParagraphCxSpLast style='text-indent:-18.0pt'><span
+                style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </span></span>Month of year</p>
+                
+                <p class=MsoNormal>The model uses a box-cox transformed pm10 index with a
+                fitted lambda of about 0.1633 as a target. The predicted value is then inverted
+                using the fitted lambda to provide an index score.</p>
+                
+                <p class=MsoNormal>Model performance has been evaluated using Root Mean Squared
+                Error scores and R2 scores.  The final model has the following results:</p>
+                
+                <p class=MsoListParagraphCxSpFirst style='text-indent:-18.0pt'><span
+                style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </span></span>RMSE: 0.58</p>
+                
+                <p class=MsoListParagraphCxSpLast style='text-indent:-18.0pt'><span
+                style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </span></span>R2: 0.295</p>
+                
+                <p class=MsoNormal>Key features of the training data are provided in the table
+                below and can be used to provide context with the models results.</p>
+                
+                <p class=MsoNormal><b>&nbsp;</b></p>
+                
+                <p class=MsoNormal><b>&nbsp;</b></p>
+                
+                <p class=MsoNormal><b>&nbsp;</b></p>
+                
+                <p class=MsoNormal><b>Table 2: </b>Key features of final model training data</p>
+                
+                <p class=MsoNormal><img border=0 width=405 height=233 id="Picture 3"
+                src="{% static 'img/aqi3.png' %}"><br>
+                <b>References</b></p>
+                
+                <p class=MsoNormal><span style='font-size:10.0pt;line-height:107%;font-family:
+                "Open Sans",sans-serif;color:black;background:white'>[1] M. Bell, D. Davis and
+                T. Fletcher, &quot;A retrospective assessment of mortality from the London smog
+                episode of 1952: the role of influenza and pollution.&quot;,&nbsp;</span><i
+                style='box-sizing: border-box;font-variant-ligatures: normal;font-variant-caps: normal;
+                orphans: 2;widows: 2;-webkit-text-stroke-width: 0px;text-decoration-thickness: initial;
+                text-decoration-style: initial;text-decoration-color: initial;word-spacing:
+                0px'>Environmental Health Perspectives</i><span style='font-variant-ligatures: normal;
+                font-variant-caps: normal;orphans: 2;widows: 2;-webkit-text-stroke-width: 0px;
+                text-decoration-thickness: initial;text-decoration-style: initial;text-decoration-color: initial;
+                float:none;word-spacing:0px'>, vol. 112, no. 1, pp. 6-8, 2004. Available:
+                10.1289/ehp.6539.</span></span></p>
+                
+                <p class=MsoNormal><span style='font-size:10.0pt;line-height:107%;font-family:
+                "Open Sans",sans-serif;color:black;background:white'>[2] “Air Pollution” World
+                Health Organisation. <a
+                href="https://www.who.int/health-topics/air-pollution%23tab=tab_1">https://www.who.int/health-topics/air-pollution#tab=tab_1</a></span></p>
+                
+                <p class=MsoNormal><span style='font-size:10.0pt;line-height:107%;font-family:
+                "Open Sans",sans-serif;color:black;background:white'>[3] “Using the Air Quality
+                Index”, AirNow.gov - Home of the U.S. Air Quality Index, <a
+                href="https://www.airnow.gov/aqi/aqi-basics/using-air-quality-index/">https://www.airnow.gov/aqi/aqi-basics/using-air-quality-index/</a></span></p>
+                
+                <p class=MsoNormal><span style='font-size:10.0pt;line-height:107%;font-family:
+                "Open Sans",sans-serif;color:black;background:white'>[4] “PM10 particles in the
+                air”, Environmental Protection Authority Victoria, <a
+                href="https://www.epa.vic.gov.au/for-community/environmental-information/air-quality/pm10-particles-in-the-air">https://www.epa.vic.gov.au/for-community/environmental-information/air-quality/pm10-particles-in-the-air</a></span></p>
+                
+                <p class=MsoNormal><span style='font-size:10.0pt;line-height:107%;font-family:
+                "Open Sans",sans-serif;color:black;background:white'>&nbsp;</span></p>
+                
+                <p class=MsoNormal><span style='font-size:10.0pt;line-height:107%;font-family:
+                "Open Sans",sans-serif;color:black;background:white'>&nbsp;</span></p>
+                
+                </div>
+
+        </div>
+
+        <div id='dashboard' style="display: none; height: 1024px; width: 1624px; padding-top: 100px;">
+            <div class='tableauPlaceholder' id='viz1622000578880' style='position: relative'><noscript><a href='#'><img alt='Visualisation of AQI ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;AQ&#47;AQIVisualisationofGeelongCity&#47;VisualisationofAQI&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='AQIVisualisationofGeelongCity&#47;VisualisationofAQI' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;AQ&#47;AQIVisualisationofGeelongCity&#47;VisualisationofAQI&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1622000578880');                    var vizElement = divElement.getElementsByTagName('object')[0];                    if ( divElement.offsetWidth > 800 ) { vizElement.style.width='1624px';vizElement.style.height='895px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='1624px';vizElement.style.height='895px';} else { vizElement.style.width='100%';vizElement.style.height='1027px';}                     var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+        </div>
 
       </div>
-
-
-	</div>
 
 </body>
 </html>
