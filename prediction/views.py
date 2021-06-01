@@ -326,13 +326,13 @@ def predict(request):
         transformed_data = transformer.fit_transform(data_df)
         transformed_data_list = [x[0] for x in transformed_data]
 
-        '''
+        
         # Production
         url = 'https://d2i-model-api.herokuapp.com/api/'
         '''
 
         url = 'http://127.0.0.1:5000/api/'
-        
+        '''
 
         j_data = json.dumps([transformed_data_list])
         headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8'}
