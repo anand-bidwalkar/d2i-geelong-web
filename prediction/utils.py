@@ -9,7 +9,7 @@ from google.protobuf import json_format
 from google.protobuf.struct_pb2 import Value
 '''
 
-API_key = 'AIzaSyCLYt6uWqP3gI8ubO8BkcfmmBdi8by1bFQ' #Insert your API
+API_key = 'AIzaSyBIvthq4daiHk39P5wuQ7TsPOnks8xurEE' #Insert your API
 gmaps = googlemaps.Client(key=API_key)
 radius = 1000
 
